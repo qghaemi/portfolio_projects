@@ -18,11 +18,11 @@ Each modeling notebook followed a similar structure: run a baseline model, the G
 
 More details can be found below or in individual notebooks regarding the modeling process, but the too long did not read version is that the GRU neural network was able to successfully forecast the price of Bitcoin within a reasonable error level. Below is a graph that shows the forecasted price of Bitcoin, the error ranges (shaded area), and the true price of Bitcoin. 
 
-![GRU](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/gru_fcast.png)
+![GRU](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/gru_fcast.png)
 
 This is an extremely important finding as we can confirm the price of Bitcoin can be forecasted within a reasonable error level by only using the closing price. Extensions to this model will need to be developed in order to forecast for future dates, but in the mean time this model proves that a model should be able to reasonably forecast the price of Bitcoin.
 
-The main recommendation is to build out the GRU network to forecast for the future, however there are some issues with the classes that were used during this process that would need to be reworked: `GridSearchCV`, `KerasRegressor`, and `TimeseriesGenerator`. A workaround to this problem would be to build a custom class to replace the `KerasRegressor`. The custom class should perform in the same way as the `KerasRegressor` and `TimeseriesGenerator` all in one class. Despite this custom class seeming very simple, this is an issue that multiple people are attempting to solve [link 1](https://stackoverflow.com/questions/59118239/is-there-anyway-to-use-fit-generator-method-with-kerasregressor-wrapper).More details on this can be found in the recurrent neural network notebook.
+The main recommendation is to build out the GRU network to forecast for the future, however there are some issues with the classes that were used during this process that would need to be reworked: `GridSearchCV`, `KerasRegressor`, and `TimeseriesGenerator`. A workaround to this problem would be to build a custom class to replace the `KerasRegressor`. The custom class should perform in the same way as the `KerasRegressor` and `TimeseriesGenerator` all in one class. Despite this custom class seeming very simple, this is an issue that multiple people are [attempting to solve](https://stackoverflow.com/questions/59118239/is-there-anyway-to-use-fit-generator-method-with-kerasregressor-wrapper). More details on this can be found in the recurrent neural network notebook.
 
 ### Contents: 
 
@@ -64,7 +64,7 @@ Nakamoto created a new, scarce, digital good. Bitcoins are created on the Bitcoi
 
 While Bitcoin's value is highly contested and an argument can be made for both sides: Bitcoin has no value and Bitcoin is a valuable asset. This project will not debate this argument and will simply take the position of the latter and assumes anyone reading from this point on agrees. The key to understanding the growth rate of Bitcoin has been outlined by Michael Casey where he explains adoption theory with an S-curve (image below).
 
-![adoption_s_curve](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/adoption_curve.png)
+![adoption_s_curve](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/adoption_curve.png)
 
 This S-curve that Casey shows is the adoption curve for new technology to be accepted by the masses. The curve is meant to be an exponential growth and then as adoption nears 100%, the curve begins to flatten out until 100% or near 100% adoption is reached. While many of the technologies shown have a fairly smooth trajectory up, unlike Bitcoin which has proven to be very volatile. Casey mentions this and points out that while it may look very volatile in the present, if/when Bitcoin reaches near 100% adoption the curve may resemble many of these other S-curves.
 
@@ -103,17 +103,17 @@ Cleaning the data was very straightforward as it came clean from Yahoo Finance. 
 
 Based on findings in EDA: the data has an exponential trend, there is seasonality in the data at the monthly level, the data is not stationary but a one-period differencing will allow the data to be stationary, and the data is highly correlated with past values.
 
-![monthly_seasonal_decomp](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/monthly_seasonal_decomp.png)
+![monthly_seasonal_decomp](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/monthly_seasonal_decomp.png)
 
 The seasonal decomposition chart above is made up of four sections from top to bottom: time plot, trend analysis, seasonality analysis, and residuals. Above is a seasonal decomposition of Bitcoin's closing price every 30-days. The trend in this example was an exponential trend based on the residuals; the residuals were consistently choppy throughout the entire time period when the exponential trend was analyzed, but when a linear trend was analyzed the residuals were much more pronounced from 2018-2021. While that could have suggested a linear trend until 2018 and then a switch to an exponential trend, there was no change in the underlying technology in 2018 - this was not the case. The argument could be made that Bitcoin gained mainstream notoriety in 2018, but that was the result of the price hitting new highs, not the other way around. 
 
 The seasonal section of the seasonal decomposition chart was the most surprising finding: seasonality could be seen in the Bitcoin closing price at a monthly level. The seasonality became more pronounced as the time period expanded. This was an unexpected finding but helped craft a key point in model selection which was to include the seasonal extensions of the models selected.
 
-![stationarity_visualization](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/stationarity_visualization.png)
+![stationarity_visualization](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/stationarity_visualization.png)
 
 In the above image, the average Bitcoin price over the time periods specified show the data is not stationary. An Augmented Dickey-Fuller (ADF) Test confirmed what the visualization showed, the data is not stationary. Differencing was performed in order to achieve stationarity, because the data has an exponential trend, both normal and logarithmic differencing was applied. Both types of differencing achieved stationarity, but the logged differenced data had a stronger ADF score. This determination gave the paved the way for using the logged version of the data for the ARIMA model.
 
-![ACF](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/monthly_acf.png)
+![ACF](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/monthly_acf.png)
 
 The key takeaways from the above monthly ACF chart are that the data is highly correlated even 90 days out and there is seasonality based on the scalloped/wave-like pattern in the chart. This combined with findings in the PACF chart (not pictured but full details in EDA notebook) helped inform the final parameters for the ARIMA model.
 
@@ -125,7 +125,7 @@ The metrics being used to evaluate the models are their AIC scores as Residual S
 
 The two types of ARIMA models that were ran were the ARIMA and SARIMA models. ARIMA stands for AutoRegressive, Integrated, Moving Average; SARIMA is the seasonal extension of the ARIMA model. More details about their hyperparameters and how they were selected can be found in the ARIMA notebook. 
 
-![SARIMA](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/sarima_chart.png)
+![SARIMA](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/sarima_chart.png)
 
 The RSS optimized SARIMA model was the best performing model from this section: it was the only model built that not only forecasted the price of Bitcoin higher, but also forecasted a series of price declines (pullbacks) that was similar to the real price of Bitcoin. The graph above helps visualize the SARIMA models' forecasts.
 
@@ -133,13 +133,13 @@ The next model type that was explored were exponential smoothing models due to t
 
 One hyperparameter to highlight in these model types is the damped parameter. When set to True, the forecast will reduce the size of the trend over future time steps down to a straight line (no trend). This aligns well with the adoption curve that was shown in the background section. All of the RSS optimized exponential models had damped set to True which only further validated what was seen. More details about their hyperparameters and how they were selected can be found in the exponential smoothing notebook. 
 
-![Holt](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/holt_chart.png)
+![Holt](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/holt_chart.png)
 
 Of the two exponential models tested, the Holt model returned a lower RSS score which was surprising since it did not account for seasonality in the data. Based on this finding, there is an interesting conclusion that can be drawn: the seasonality found in Bitcoin is specific to pullbacks only. The way this conclusion is drawn is based on how the exponential models forecast compared to how the SARIMA model forecasts. The exponential models are forecasting an exponential trend and are not concerned with minor pullbacks when the long-term trend is higher. As a result, the exponential model that incorporates seasonality is not helpful because the seasonality is reflective of short-term declines/pullbacks.
 
 The final model that was created was a recurrent neural network (RNN). RNN's are best used for sequential data like time series or natural language processing (NLP). A neural network allows the machine the ability to train itself based on the data it is given. The two types of RNN's that were explored are gated recurrent network (GRU) and Long Short Term Memory (LSTM). These are two common network architectures that are helpful in solving time-series problems. The main difference between GRU and LSTM is that GRU has two gates that the data will go through while LSTM has three. Which architecture is best for the model depends on the data that is being modeled so both were created as an initial test before building the better one out deeper. More details about their differences and how each network was built can be found in the recurrent neural network notebook.
 
-![RNN](https://git.generalassemb.ly/qghaemi/dsir-125/tree/master/capstone/images/gru_chart.png)
+![RNN](https://github.com/qghaemi/portfolio_projects/blob/main/bitcoin_forecasting_project/images/gru_chart.png)
 
 The above graph shows the forecasted price against the actual price similar to the previous graphs shown. While the forecast window is smaller (more details on why are in the RNN notebook), the forecasted prices are much more in line with the real price which is why this model returned the lowest RSS score. To bring it back to the problem statement, the RMSE brings the error back into the same units as the forecast (USD) and is 2,261.62. This is well below the $6,300 level that was deemed reasonable error which means this model is able to successfully forecast the price of Bitcoin within a reasonable error level.
 
